@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfólio | Gabriel Caprioli</title>
+  <meta name="description" content="Portfólio pessoal de Gabriel Caprioli — em desenvolvimento na área de Dados (Análise, Engenharia e Automações)." />
+
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.9);
+      --muted: rgba(255,255,255,.7);
+      --muted2: rgba(255,255,255,.55);
+      --border: rgba(255,255,255,.12);
+      --accent: #7c5cff;
+      --accent2:#22c55e;
+      --shadow: 0 20px 70px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    [data-theme="light"]{
+      --bg: #f7f7fb;
+      --panel: rgba(0,0,0,.04);
+      --panel2: rgba(0,0,0,.06);
+      --text: rgba(0,0,0,.88);
+      --muted: rgba(0,0,0,.68);
+      --muted2: rgba(0,0,0,.55);
+      --border: rgba(0,0,0,.10);
+      --shadow: 0 20px 70px rgba(0,0,0,.12);
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background: radial-gradient(900px 500px at 20% -10%, rgba(124,92,255,.25), transparent 60%),
+                  radial-gradient(800px 500px at 90% 10%, rgba(34,197,94,.18), transparent 60%),
+                  var(--bg);
+      min-height:100vh;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .container{ max-width:var(--max); margin:0 auto; padding: 22px 18px 70px; }
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(0,0,0,.35), transparent);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    [data-theme="light"] .topbar{
+      background: linear-gradient(to bottom, rgba(247,247,251,.86), rgba(247,247,251,.55));
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding: 14px 18px;
+      max-width:var(--max); margin:0 auto;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: conic-gradient(from 180deg, var(--accent), var(--accent2), var(--accent));
+      box-shadow: 0 0 0 6px rgba(124,92,255,.12);
+    }
+    .navlinks{
+      display:flex; align-items:center; gap: 10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .chip{
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.03);
+      font-weight:650;
+      font-size: 13px;
+      color: var(--muted);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .chip:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+    [data-theme="light"] .chip{ background: rgba(0,0,0,.03); }
+    [data-theme="light"] .chip:hover{ background: rgba(0,0,0,.06); border-color: rgba(0,0,0,.14); }
+
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight:750;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); }
+    .btn.primary{
+      border-color: rgba(124,92,255,.45);
+      background: linear-gradient(135deg, rgba(124,92,255,.25), rgba(34,197,94,.12));
+    }
+    .btn small{ font-weight:700; color: var(--muted); }
+    .icons{ font-family: var(--mono); font-size: 12px; opacity:.9; }
+
+    /* Hero */
+    .hero{
+      padding: 26px 0 10px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    [data-theme="light"] .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
+    }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      color: var(--muted);
+      font-weight:700;
+      font-size: 13px;
+    }
+    .badge{
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+    }
+    h1{
+      margin: 10px 0 8px;
+      font-size: clamp(26px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.5px;
+    }
+    .subtitle{
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15.5px;
+    }
+
+    .ctaRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 6px;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 520px){
+      .stats{ grid-template-columns: 1fr; }
+    }
+    .stat{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 12px;
+      background: rgba(255,255,255,.03);
+    }
+    .stat .label{ color: var(--muted2); font-weight:700; font-size: 12px; }
+    .stat .value{ margin-top:6px; font-weight:900; font-size: 15px; }
+    .stat .hint{ margin-top:4px; color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+
+    /* Sections */
+    section{ margin-top: 16px; }
+    .sectionTitle{
+      display:flex; align-items:end; justify-content:space-between; gap:12px;
+      margin-bottom: 10px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+    .sectionTitle p{
+      margin:0;
+      color: var(--muted2);
+      font-size: 13px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    .col-6{ grid-column: span 6; }
+    .col-7{ grid-column: span 7; }
+    .col-5{ grid-column: span 5; }
+    .col-4{ grid-column: span 4; }
+    .col-8{ grid-column: span 8; }
+    .col-12{ grid-column: span 12; }
+    @media (max-width: 900px){
+      .col-6,.col-7,.col-5,.col-4,.col-8{ grid-column: span 12; }
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .item{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255,255,255,.03);
+    }
+    .itemTop{
+      display:flex; align-items:flex-start; justify-content:space-between; gap: 10px;
+    }
+    .item h3{ margin:0; font-size: 14.5px; letter-spacing:-.1px; }
+    .meta{ color: var(--muted2); font-size: 12.5px; margin-top: 4px; line-height:1.45; }
+    .pillRow{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+    .pill{
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+    }
+
+    /* Skills */
+    .skillControls{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end;
+    }
+    .search{
+      display:flex; align-items:center; gap:10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius: 12px;
+      padding: 10px 12px;
+      min-width: 240px;
+      flex: 1;
+    }
+    .search input{
+      border:0; outline:0; background:transparent; color: var(--text);
+      width:100%;
+      font-weight:650;
+    }
+    .search input::placeholder{ color: var(--muted2); font-weight:650; }
+
+    .tabs{
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .tab{
+      padding: 9px 12px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-weight:800;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease;
+      font-size: 13px;
+      user-select:none;
+    }
+    .tab:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); }
+    .tab.active{
+      color: var(--text);
+      border-color: rgba(124,92,255,.55);
+      background: rgba(124,92,255,.14);
+    }
+
+    .skillGrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 900px){ .skillGrid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px){ .skillGrid{ grid-template-columns: 1fr; } }
+
+    .skill{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255,255,255,.03);
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .skillTop{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .skillName{ font-weight:900; font-size: 14px; }
+    .level{ font-family: var(--mono); color: var(--muted2); font-size: 12px; }
+    .bar{
+      height: 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+    }
+    .bar > span{
+      display:block; height:100%;
+      background: linear-gradient(90deg, rgba(124,92,255,.9), rgba(34,197,94,.8));
+      width: 0%;
+      transition: width .5s ease;
+    }
+    .skillHint{ color: var(--muted); font-size: 12.5px; line-height: 1.45; }
+
+    /* Footer */
+    footer{
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted2);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.55);
+      color: rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .2s ease, transform .2s ease;
+      pointer-events:none;
+      font-weight:750;
+      max-width: 320px;
+    }
+    [data-theme="light"] .toast{
+      background: rgba(255,255,255,.85);
+      color: rgba(0,0,0,.85);
+    }
+    .toast.show{ opacity:1; transform: translateY(0); }
+
+    /* Small helper */
+    .muted{ color: var(--muted); }
+    .mono{ font-family: var(--mono); }
+  </style>
+</head>
+
+<body data-theme="dark">
+  <header class="topbar">
+    <div class="nav">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Gabriel Caprioli</span>
+        <span class="badge">Portfólio</span>
+      </div>
+
+      <nav class="navlinks" aria-label="Navegação">
+        <a class="chip" href="#sobre">Sobre</a>
+        <a class="chip" href="#carreira">Carreira</a>
+        <a class="chip" href="#skills">Skills</a>
+        <a class="chip" href="#projetos">Projetos</a>
+        <a class="chip" href="#contato">Contato</a>
+        <button id="themeBtn" class="btn" type="button" aria-label="Alternar tema">
+          <span class="icons">🌙</span>
+          <span>Tema</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <div class="hero" id="topo">
+      <div class="card">
+        <div class="kicker">
+          <span class="badge">Dados • Automações • Em desenvolvimento</span>
+          <span class="muted">Disponível para oportunidades</span>
+        </div>
+
+        <h1>Analista de Dados em formação, com foco em Engenharia de Dados e Automações.</h1>
+        <p class="subtitle">
+          Sou o <b>Gabriel Caprioli</b>, tenho <b>19 anos</b> e estou construindo minha carreira em dados.
+          Gosto de transformar informações em decisões, criar rotinas automatizadas e evoluir de forma consistente.
+          Meu objetivo é atuar com <b>Análise de Dados</b>, <b>Engenharia de Dados</b> e <b>Automação</b>.
+        </p>
+
+        <div class="ctaRow">
+          <a class="btn primary" href="#projetos">
+            <span class="icons">▶</span>
+            <span>Ver projetos</span>
+          </a>
+          <button class="btn" type="button" id="copyEmailBtn">
+            <span class="icons">⎘</span>
+            <span>Copiar e-mail</span>
+            <small class="mono" id="emailLabel">seuemail@exemplo.com</small>
+          </button>
+          <a class="btn" href="#contato">
+            <span class="icons">✉</span>
+            <span>Falar comigo</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="sectionTitle">
+          <h2>Resumo rápido</h2>
+          <p>O que eu busco</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="label">Foco</div>
+            <div class="value">Dados + Automação</div>
+            <div class="hint">Pipelines, relatórios, indicadores, rotinas e padronização.</div>
+          </div>
+          <div class="stat">
+            <div class="label">Estilo</div>
+            <div class="value">Prático e organizado</div>
+            <div class="hint">Curto ciclos: entendo o problema → entrego versão 1 → melhoro.</div>
+          </div>
+          <div class="stat">
+            <div class="label">Meta 2026</div>
+            <div class="value">Evoluir como Jr</div>
+            <div class="hint">Aprimorar SQL, Python e modelagem, e ganhar experiência real.</div>
+          </div>
+          <div class="stat">
+            <div class="label">Diferencial</div>
+            <div class="value">Mentalidade de automação</div>
+            <div class="hint">Evito trabalho manual repetitivo com processos simples e claros.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+      <div class="sectionTitle">
+        <h2>Sobre mim</h2>
+        <p>Quem eu sou + como eu trabalho</p>
+      </div>
+
+      <div class="grid">
+        <div class="card col-7">
+          <p class="subtitle" style="margin:0">
+            Tenho interesse em <b>dados</b> porque gosto de enxergar padrões, medir resultados e criar soluções que
+            economizam tempo. Estou no início da jornada, mas levo evolução a sério: estudo de forma contínua,
+            aplico em projetos e busco feedback para melhorar.
+            <br><br>
+            No dia a dia, eu me destaco por ser <b>responsável</b>, <b>comunicativo</b> e por manter uma rotina de
+            <b>organização</b> (documentação, padronização e controle de versões).
+          </p>
+          <div class="pillRow" aria-label="Características">
+            <span class="pill">curiosidade</span>
+            <span class="pill">aprendizado contínuo</span>
+            <span class="pill">foco em resultado</span>
+            <span class="pill">atenção a detalhes</span>
+            <span class="pill">colaboração</span>
+          </div>
+        </div>
+
+        <div class="card col-5">
+          <div class="sectionTitle">
+            <h2>Soft skills</h2>
+            <p>Como eu atuo em time</p>
+          </div>
+          <div class="list" id="softSkillsList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARREIRA -->
+    <section id="carreira">
+      <div class="sectionTitle">
+        <h2>Carreira</h2>
+        <p>Linha do tempo e objetivos</p>
+      </div>
+
+      <div class="grid">
+        <div class="card col-6">
+          <div class="sectionTitle">
+            <h2>Onde estou</h2>
+            <p>Hoje</p>
+          </div>
+          <div class="list" id="ondeEstou"></div>
+        </div>
+
+        <div class="card col-6">
+          <div class="sectionTitle">
+            <h2>Para onde vou</h2>
+            <p>Próximos passos</p>
+          </div>
+          <div class="list" id="proximosPassos"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="sectionTitle">
+        <h2>Skills</h2>
+        <p>Hard skills + nível (editável)</p>
+      </div>
+
+      <div class="card">
+        <div class="grid" style="align-items:center">
+          <div class="col-8">
+            <div class="search" role="search">
+              <span class="icons">⌕</span>
+              <input id="skillSearch" type="text" placeholder="Buscar skill (ex.: SQL, Power BI, Python)..." />
+            </div>
+          </div>
+          <div class="col-4" style="display:flex; justify-content:flex-end;">
+            <div class="tabs" aria-label="Filtro de skills">
+              <button class="tab active" data-filter="all" type="button">Todas</button>
+              <button class="tab" data-filter="data" type="button">Dados</button>
+              <button class="tab" data-filter="eng" type="button">Eng. Dados</button>
+              <button class="tab" data-filter="auto" type="button">Automação</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:12px"></div>
+        <div class="skillGrid" id="skillGrid"></div>
+        <p class="muted" style="margin:12px 0 0; font-size:13px;">
+          *Níveis são estimativas para mostrar evolução. Você pode ajustar livremente.
+        </p>
+      </div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projetos">
+      <div class="sectionTitle">
+        <h2>Projetos</h2>
+        <p>3 ideias prontas pra você preencher</p>
+      </div>
+
+      <div class="grid" id="projectGrid"></div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato">
+      <div class="sectionTitle">
+        <h2>Contato</h2>
+        <p>Links e mensagem</p>
+      </div>
+
+      <div class="grid">
+        <div class="card col-6">
+          <div class="list" id="contactCards"></div>
+        </div>
+
+        <div class="card col-6">
+          <h3 style="margin:0 0 8px;">Mensagem rápida</h3>
+          <p class="meta" style="margin:0 0 10px;">
+            Clique para gerar uma mensagem e abrir no seu e-mail (você pode editar antes de enviar).
+          </p>
+          <button class="btn primary" type="button" id="openEmailBtn">
+            <span class="icons">✉</span>
+            <span>Escrever e-mail</span>
+          </button>
+
+          <div style="height:12px"></div>
+
+          <div class="item">
+            <div class="itemTop">
+              <h3>Mini pitch (copiar)</h3>
+              <span class="badge">Texto curto</span>
+            </div>
+            <p class="meta" id="miniPitch" style="margin-bottom:0;">
+              Sou o Gabriel Caprioli (19), em desenvolvimento na área de Dados. Busco oportunidade para aplicar
+              SQL/Power BI/Python em análises, automações e projetos de engenharia de dados, com foco em aprender rápido
+              e gerar valor.
+            </p>
+            <div class="pillRow">
+              <button class="btn" type="button" id="copyPitchBtn"><span class="icons">⎘</span><span>Copiar pitch</span></button>
+              <button class="btn" type="button" id="downloadBtn"><span class="icons">⬇</span><span>Baixar HTML</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© <span id="year"></span> • Gabriel Caprioli • <span class="muted">feito em arquivo único</span></span>
+      <span class="mono muted">v1.0 • <a class="chip" href="#topo">voltar ao topo</a></span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ========= DADOS EDITÁVEIS =========
+    const PROFILE = {
+      name: "Gabriel Caprioli",
+      email: "gcaprioli07@gmail.com",          
+      phone: "+55 (11) 95736-5455",            
+      city: "São Paulo - SP",                  
+      linkedin: "https://www.linkedin.com/in/gabriel-caprioli-7326bb378/", 
+      github: "EM DESENVOLVIMENTO",           
+      headline: "Dados • Engenharia de Dados • Automações (em desenvolvimento)",
+    };
+
+    const SOFT_SKILLS = [
+      { title: "Comunicação clara", desc: "Explico o que estou fazendo e por quê, sem complicar o assunto." },
+      { title: "Organização", desc: "Padronizo, documento e mantenho as entregas fáceis de entender." },
+      { title: "Responsabilidade", desc: "Compromisso com prazos, qualidade e acompanhamento." },
+      { title: "Aprendizado rápido", desc: "Busco feedback, ajusto rota e evoluo com constância." },
+      { title: "Trabalho em equipe", desc: "Colaboração, respeito e foco no resultado do time." },
+    ];
+
+    const CAREER_NOW = [
+      {
+        title: "Início de carreira em Dados",
+        meta: "Objetivo: atuar como Analista de Dados Jr / Eng. Dados Jr",
+        points: ["Evoluindo em SQL, Python e modelagem", "Criando projetos e rotinas de automação", "Foco em indicadores e tomada de decisão"]
+      },
+      {
+        title: "Portfólio e prática",
+        meta: "A melhor forma de aprender é entregando",
+        points: ["Dashboards", "ETL simples", "Automação de relatórios", "Boas práticas e versionamento"]
+      }
+    ];
+
+    const CAREER_NEXT = [
+      {
+        title: "Projetos com dados reais",
+        meta: "ETL + modelagem + visualização",
+        points: ["Construir pipeline (extração → tratamento → carga)", "Criar métricas e camadas (raw/clean/curated)", "Publicar documentação do projeto"]
+      },
+      {
+        title: "Consolidar base técnica",
+        meta: "Fundamentos que todo Jr precisa",
+        points: ["SQL (joins, janelas, performance)", "Python (pandas, automação)", "Power BI (modelagem, DAX, visual)"]
+      }
+    ];
+
+    // Skills: level (0-100) apenas para visual
+    const HARD_SKILLS = [
+      { name:"SQL", group:"data", level:65, hint:"Consultas, joins e lógica. Evoluindo em performance/janelas." },
+      { name:"Power BI", group:"data", level:70, hint:"Modelagem e dashboards com foco em clareza e indicadores." },
+      { name:"Excel Avançado", group:"data", level:75, hint:"Fórmulas, tabelas dinâmicas e automações simples." },
+      { name:"Python", group:"auto", level:55, hint:"Automação e manipulação de dados (pandas) em evolução." },
+      { name:"ETL (conceitos)", group:"eng", level:50, hint:"Extração, tratamento e carga. Estruturando pipelines." },
+      { name:"Modelagem de Dados", group:"eng", level:45, hint:"Dimensional e boas práticas (em desenvolvimento)." },
+      { name:"Git/GitHub", group:"auto", level:50, hint:"Versionamento básico e organização de repositórios." },
+      { name:"APIs (consumo)", group:"auto", level:40, hint:"Chamadas e integração simples (em evolução)." },
+      { name:"Banco de Dados", group:"eng", level:50, hint:"Noções de tabelas, chaves, relacionamentos e consultas." },
+    ];
+
+    const PROJECTS = [
+      {
+        title: "Dashboard de Performance (Power BI)",
+        badge: "Análise",
+        desc: "Dashboard com KPIs (volume, conversão, produtividade) e filtros por período/segmento. Objetivo: facilitar decisão diária.",
+        tags: ["Power BI", "Modelagem", "KPIs", "DAX (básico)"],
+        links: [{ label:"GitHub", url: PROFILE.github }, { label:"Demo", url:"#"}]
+      },
+      {
+        title: "Pipeline ETL Simples (Python + CSV)",
+        badge: "Eng. Dados",
+        desc: "Script que extrai dados (CSV/API), trata inconsistências e gera uma camada 'clean' pronta para análise.",
+        tags: ["Python", "pandas", "ETL", "Validação"],
+        links: [{ label:"Repositório", url: PROFILE.github }, { label:"Documentação", url:"#"}]
+      },
+      {
+        title: "Automação de Relatório (Python/Excel)",
+        badge: "Automação",
+        desc: "Rotina que consolida arquivos, calcula métricas e gera saída final padronizada para envio/atualização.",
+        tags: ["Python", "Excel", "Automação", "Padronização"],
+        links: [{ label:"GitHub", url: PROFILE.github }, { label:"Case", url:"#"}]
+      },
+    ];
+
+    // ========= HELPERS =========
+    const $ = (q, el=document) => el.querySelector(q);
+    const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
+
+    function toast(msg){
+      const t = $("#toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(()=> t.classList.remove("show"), 2200);
+    }
+
+    function itemCard({title, meta, points=[]}){
+      const div = document.createElement("div");
+      div.className = "item";
+      const ul = points.map(p => `<li class="meta" style="margin:6px 0 0">${p}</li>`).join("");
+      div.innerHTML = `
+        <div class="itemTop">
+          <h3>${title}</h3>
+          <span class="badge">info</span>
+        </div>
+        <div class="meta">${meta}</div>
+        ${points.length ? `<ul style="margin:10px 0 0; padding-left: 18px;">${ul}</ul>` : ""}
+      `;
+      return div;
+    }
+
+    function softSkillCard({title, desc}){
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <div class="itemTop">
+          <h3>${title}</h3>
+          <span class="badge">soft</span>
+        </div>
+        <div class="meta">${desc}</div>
+      `;
+      return div;
+    }
+
+    function projectCard(p){
+      const div = document.createElement("div");
+      div.className = "card col-4";
+      div.innerHTML = `
+        <div class="itemTop">
+          <h3 style="margin:0">${p.title}</h3>
+          <span class="badge">${p.badge}</span>
+        </div>
+        <p class="meta">${p.desc}</p>
+        <div class="pillRow">${p.tags.map(t=>`<span class="pill">${t}</span>`).join("")}</div>
+        <div class="pillRow" style="margin-top:12px">
+          ${p.links.map(l => `<a class="btn" href="${l.url}" target="_blank" rel="noopener">${l.label} <span class="icons">↗</span></a>`).join("")}
+        </div>
+      `;
+      return div;
+    }
+
+    function renderSkills(list){
+      const grid = $("#skillGrid");
+      grid.innerHTML = "";
+      list.forEach(s => {
+        const div = document.createElement("div");
+        div.className = "skill";
+        div.dataset.group = s.group;
+        div.dataset.name = s.name.toLowerCase();
+        div.innerHTML = `
+          <div class="skillTop">
+            <div class="skillName">${s.name}</div>
+            <div class="level">${s.level}/100</div>
+          </div>
+          <div class="bar" aria-label="Nível">
+            <span style="width:${Math.max(5, s.level)}%"></span>
+          </div>
+          <div class="skillHint">${s.hint}</div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    function applySkillFilters(){
+      const term = $("#skillSearch").value.trim().toLowerCase();
+      const activeTab = $(".tab.active")?.dataset.filter ?? "all";
+
+      $$("#skillGrid .skill").forEach(card => {
+        const matchTerm = card.dataset.name.includes(term);
+        const matchGroup = (activeTab === "all") || (card.dataset.group === activeTab);
+        card.style.display = (matchTerm && matchGroup) ? "flex" : "none";
+      });
+    }
+
+    // ========= INIT =========
+    (function init(){
+      // Year
+      $("#year").textContent = new Date().getFullYear();
+
+      // Email label
+      $("#emailLabel").textContent = PROFILE.email;
+
+      // Soft skills
+      const softWrap = $("#softSkillsList");
+      SOFT_SKILLS.forEach(s => softWrap.appendChild(softSkillCard(s)));
+
+      // Career
+      const nowWrap = $("#ondeEstou");
+      CAREER_NOW.forEach(c => nowWrap.appendChild(itemCard(c)));
+
+      const nextWrap = $("#proximosPassos");
+      CAREER_NEXT.forEach(c => nextWrap.appendChild(itemCard(c)));
+
+      // Projects
+      const pg = $("#projectGrid");
+      PROJECTS.forEach(p => pg.appendChild(projectCard(p)));
+
+      // Contact cards
+      const contact = $("#contactCards");
+      const contactItems = [
+        { title: "E-mail", meta: PROFILE.email, btn: { label:"Copiar", id:"copyEmailBtn2" } },
+        { title: "LinkedIn", meta: PROFILE.linkedin, btn: { label:"Abrir", url: PROFILE.linkedin } },
+        { title: "GitHub", meta: PROFILE.github, btn: { label:"Abrir", url: PROFILE.github } },
+        { title: "Local", meta: PROFILE.city, btn: { label:"Ok", id:"cityOkBtn" } },
+      ];
+      contactItems.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="itemTop">
+            <h3>${c.title}</h3>
+            <span class="badge">contato</span>
+          </div>
+          <div class="meta mono">${c.meta}</div>
+          <div class="pillRow">
+            ${c.btn?.url
+              ? `<a class="btn" href="${c.btn.url}" target="_blank" rel="noopener">${c.btn.label} <span class="icons">↗</span></a>`
+              : `<button class="btn" type="button" id="${c.btn.id}">${c.btn.label}</button>`
+            }
+          </div>
+        `;
+        contact.appendChild(div);
+      });
+
+      // Skills
+      renderSkills(HARD_SKILLS);
+
+      // Theme
+      const themeBtn = $("#themeBtn");
+      const savedTheme = localStorage.getItem("theme");
+      if(savedTheme){ document.body.dataset.theme = savedTheme; }
+      updateThemeIcon();
+
+      themeBtn.addEventListener("click", () => {
+        document.body.dataset.theme = (document.body.dataset.theme === "dark") ? "light" : "dark";
+        localStorage.setItem("theme", document.body.dataset.theme);
+        updateThemeIcon();
+        toast(`Tema: ${document.body.dataset.theme === "dark" ? "escuro" : "claro"}`);
+      });
+
+      function updateThemeIcon(){
+        const icon = themeBtn.querySelector(".icons");
+        icon.textContent = document.body.dataset.theme === "dark" ? "🌙" : "☀️";
+      }
+
+      // Copy email (2 botões)
+      function copyEmail(){
+        navigator.clipboard.writeText(PROFILE.email)
+          .then(()=> toast("E-mail copiado!"))
+          .catch(()=> toast("Não consegui copiar. Copie manualmente."));
+      }
+      $("#copyEmailBtn").addEventListener("click", copyEmail);
+      $("#copyEmailBtn2").addEventListener("click", copyEmail);
+
+      // Copy pitch
+      $("#copyPitchBtn").addEventListener("click", () => {
+        const txt = $("#miniPitch").textContent.trim();
+        navigator.clipboard.writeText(txt)
+          .then(()=> toast("Pitch copiado!"))
+          .catch(()=> toast("Não consegui copiar. Selecione e copie."));
+      });
+
+      // Skills filter tabs
+      $$(".tab").forEach(tab => tab.addEventListener("click", () => {
+        $$(".tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        applySkillFilters();
+      }));
+
+      // Skills search
+      $("#skillSearch").addEventListener("input", applySkillFilters);
+
+      // Open email
+      $("#openEmailBtn").addEventListener("click", () => {
+        const subject = encodeURIComponent("Oportunidade na área de Dados");
+        const body = encodeURIComponent(
+`Olá! Tudo bem?
+
+Sou o Gabriel Caprioli (19 anos), em desenvolvimento na área de Dados.
+Tenho foco em Análise de Dados, Engenharia de Dados e Automações, com prática em SQL/Power BI/Python (em evolução).
+Gostaria de conversar sobre oportunidades na equipe.
+
+Meu portfólio está neste arquivo/links e posso enviar projetos específicos conforme a vaga.
+
+Obrigado!
+Gabriel`
+        );
+        window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`;
+      });
+
+      // Download HTML (o próprio arquivo)
+      $("#downloadBtn").addEventListener("click", () => {
+        const html = "<!doctype html>\n" + document.documentElement.outerHTML;
+        const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "index.html";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        toast("Arquivo index.html baixado!");
+      });
+
+      $("#cityOkBtn").addEventListener("click", () => toast("Localização ok ✅"));
+
+      // Small: update document title with name
+      document.title = `Portfólio | ${PROFILE.name}`;
+    })();
+  </script>
+</body>
+</html>
